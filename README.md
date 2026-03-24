@@ -33,20 +33,26 @@ The `--auto-wifi` flag on any command will automatically switch to the Vespera W
 ## Examples
 
 ```bash
-# Check telescope status (auto-connect to Vespera WiFi)
-vespera status --auto-wifi
+$ vespera status --auto-wifi
+Connected to Vespera at 10.0.0.1
+Observations: 42
 
-# List all observation sessions
-vespera list
+$ vespera list
+NAME                  DATE
+2026-03-22_orion      2026-03-22
+2026-03-21_polaris    2026-03-21
+2026-03-20_m42        2026-03-20
 
-# Download all files from the latest session
-vespera download --latest
+$ vespera files 2026-03-22_orion
+NAME                  TYPE  SIZE
+2026-03-22_001.fits   FITS  15.3 MB
+2026-03-22_002.fits   FITS  15.2 MB
+2026-03-22_001.tiff   TIFF  45.8 MB
+preview.jpg           JPEG  2.1 MB
 
-# Show directory tree of all observations
-vespera tree
-
-# Download a specific session with auto WiFi switching
-vespera download --auto-wifi --session 2026-03-22_orion
+$ vespera download --auto-wifi --session 2026-03-22_orion
+Downloading 2026-03-22_orion...
+Downloaded 4 files
 ```
 
 ## JSON Output
