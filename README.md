@@ -2,6 +2,14 @@
 
 CLI for Vaonis Vespera 2 telescope control and FTP image downloads.
 
+## Install
+
+Download a binary from the [latest release](https://github.com/jrogala/vespera-cli/releases/latest), or install with Go:
+
+```bash
+go install github.com/jrogala/vespera-cli@latest
+```
+
 ## Setup
 
 Set `VESPERA_HOST` env var or use default (`10.0.0.1`):
