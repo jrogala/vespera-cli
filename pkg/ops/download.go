@@ -9,6 +9,7 @@ type DownloadOptions struct {
 	Observation string
 	OutputDir   string
 	TypeFilter  string
+	Workers     int
 }
 
 // DownloadResult holds download operation results.
@@ -20,7 +21,7 @@ type DownloadResult struct {
 
 // DownloadObservation downloads files from an observation folder.
 func DownloadObservation(c *client.FTPClient, opts DownloadOptions) (*DownloadResult, error) {
-	count, err := c.DownloadObservation(opts.Observation, opts.OutputDir, opts.TypeFilter)
+	count, err := c.DownloadObservation(opts.Observation, opts.OutputDir, opts.TypeFilter, opts.Workers)
 	if err != nil {
 		return nil, err
 	}

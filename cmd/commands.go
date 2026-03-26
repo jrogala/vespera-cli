@@ -23,6 +23,7 @@ func init() {
 
 	downloadCmd.Flags().String("type", "", "Filter by file type (FITS, TIFF, JPEG)")
 	downloadCmd.Flags().StringP("output", "o", "", "Output directory (default: ~/Pictures/vespera)")
+	downloadCmd.Flags().IntP("workers", "w", 8, "Number of parallel download workers")
 }
 
 // wrapAutoWifi wraps a function with auto WiFi connect/disconnect if --auto-wifi is set.
@@ -145,12 +146,14 @@ var downloadCmd = &cobra.Command{
 			if outputDir == "" {
 				outputDir = config.OutputDir()
 			}
+			workers, _ := cmd.Flags().GetInt("workers")
 
 			fmt.Printf("Downloading %s to %s...\n", args[0], filepath.Join(outputDir, args[0]))
 			result, err := ops.DownloadObservation(c, ops.DownloadOptions{
 				Observation: args[0],
 				OutputDir:   outputDir,
 				TypeFilter:  filter,
+				Workers:     workers,
 			})
 			if err != nil {
 				return err

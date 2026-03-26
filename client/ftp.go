@@ -238,7 +238,7 @@ func (c *FTPClient) DownloadFile(remotePath, localDir string, fileSize int64) er
 }
 
 // DownloadObservation downloads all files from an observation folder.
-func (c *FTPClient) DownloadObservation(observation, localDir string, filter string) (int, error) {
+func (c *FTPClient) DownloadObservation(observation, localDir string, filter string, workers int) (int, error) {
 	files, err := c.ListFiles(observation)
 	if err != nil {
 		return 0, err
@@ -286,7 +286,9 @@ func (c *FTPClient) DownloadObservation(observation, localDir string, filter str
 	c.conn = nil
 
 	// Parallel download with multiple FTP connections
-	workers := 8
+	if workers <= 0 {
+		workers = 8
+	}
 	if len(toDownload) < workers {
 		workers = len(toDownload)
 	}
